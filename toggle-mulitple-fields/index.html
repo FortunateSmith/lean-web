@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Password Visibility - Multiple Fields</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <h1>Password Visibility - Multiple Fields</h1>
+
+    <p>Enter your current password and new password below.</p>
+
+    <form>
+      <div>
+        <label for="current-password">Current Password</label>
+        <input type="password" name="current-password" id="current-password" />
+      </div>
+
+      <div>
+        <label for="new-password">New Password</label>
+        <input type="password" name="new-password" id="new-password" />
+      </div>
+
+      <div>
+        <label for="show-passwords">
+          <input type="checkbox" name="show-passwords" id="show-passwords" />
+          Show passwords
+        </label>
+      </div>
+
+      <p>
+        <button type="submit">Change Passwords</button>
+      </p>
+    </form>
+
+    <script>
+      const passwords = document.querySelectorAll("[type=password]");
+      const toggle = document
+        .querySelector("#show-passwords")
+        .addEventListener("change", (e) =>
+          passwords.forEach((password) =>
+            e.target.checked ? (password.type = "text") : (password.type = "password")
+          )
+        );
+    </script>
+  </body>
+</html>
