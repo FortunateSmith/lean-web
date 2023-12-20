@@ -85,7 +85,24 @@
     </form>
 
     <script>
-      // Your code goes here...
+      const password = document.querySelector("#password");
+      const currentPassword = document.querySelector("#current-password");
+      const newPassword = document.querySelector("#new-password");
+
+      // const allPasswordFields = document.querySelectorAll("[type='password']");
+
+      document.addEventListener("click", (e) => {
+        if (e.target.id === "show-password") {
+          e.target.checked
+            ? (password.type = "text")
+            : (password.type = "password");
+        } else if (e.target.id === "show-passwords") {
+          e.target.checked
+            ? (currentPassword.type = "text") && (newPassword.type = "text")
+            : (currentPassword.type = "password") &&
+              (newPassword.type = "password");
+        }
+      });
     </script>
   </body>
 </html>
