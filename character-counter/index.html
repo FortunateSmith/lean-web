@@ -40,7 +40,6 @@
 
       text.addEventListener("keydown", (e) => {
         if (e.key === "Backspace" && count.textContent > 0) {
-          console.log("Backspace");
           count.innerText--;
         } else if (e.key !== "Backspace") {
           count.innerText++;
