@@ -38,12 +38,18 @@
       const text = document.querySelector("#text");
       const count = document.querySelector("#character-count");
 
-      text.addEventListener("keydown", (e) => {
-        if (e.key === "Backspace" && count.textContent > 0) {
-          count.innerText--;
-        } else if (e.key !== "Backspace") {
-          count.innerText++;
-        }
+      // text.addEventListener("keydown", (e) => {
+      //   if (e.key === "Backspace" && count.textContent > 0) {
+      //     count.innerText--;
+      //   } else if (e.key !== "Backspace") {
+      //     count.innerText++;
+      //   }
+      // });
+
+      // alternate approach (probably better)
+
+      text.addEventListener("input", (e) => {
+        count.innerText = text.value.length;
       });
     </script>
   </body>
