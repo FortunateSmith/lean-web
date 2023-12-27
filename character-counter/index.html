@@ -40,7 +40,6 @@
       const start = count.innerText;
 
       text.addEventListener("input", (e) => {
-        console.log(text.value)
         count.innerText = start - text.value.length;
         count.innerText < 1 ? (count.style.color = 'red') : (count.style.color  = 'black');
       });
