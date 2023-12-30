@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Random Ron</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style type="text/css">
+      body {
+        margin: 0 auto;
+        max-width: 40em;
+        width: 88%;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      blockquote {
+        min-height: 364px;
+        min-width: 400px;
+        background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/57bccb5e-5e2b-4f29-9951-ed9899532443/d56p1lu-f3fa3c70-d2bf-41e6-a667-be7a08e3645b.jpg/v1/fill/w_900,h_563,q_75,strp/ron_swanson_wallpaper_by_jasonbmud_d56p1lu-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTYzIiwicGF0aCI6IlwvZlwvNTdiY2NiNWUtNWUyYi00ZjI5LTk5NTEtZWQ5ODk5NTMyNDQzXC9kNTZwMWx1LWYzZmEzYzcwLWQyYmYtNDFlNi1hNjY3LWJlN2EwOGUzNjQ1Yi5qcGciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.pPr-EFis95Y05t919D41s7S8_wiZ1wubJVnwiAZB2mA");
+        background-position: 0 100%;
+        width: 100%;
+        margin: 0;
+        color: white;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        font-size: 30px;
+      }
+
+      #quote {
+        width: 50%;
+        margin-right: 15px;
+        text-align: center;
+      }
+
+      button {
+        padding: 15px 30px 15px 30px;
+        background-color: rgb(170, 216, 171);
+        font-size: 17px;
+        transition: background-color 500ms ease-in-out, color 500ms ease-in-out;
+        border: none;
+      }
+
+      button:hover {
+        background-color: green;
+        color: white;
+        /* transition: background-color 2s; */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Random Ron</h1>
+
+    <blockquote>
+      <div id="quote" aria-live="polite" aria-atomic="true">
+        The Wisdom of Ron Swanson
+      </div>
+    </blockquote>
+
+    <p>
+      <button id="get-quote">More Ron</button>
+    </p>
+
+    <script>
+      // Your code goes here...
+      const quoteButton = document.querySelector("#get-quote");
+      const quote = document.querySelector("#quote");
+      let originalText = quote.innerText;
+      let prevQuotes = [];
+
+      async function getQuote() {
+        try {
+          let res = await fetch(
+            "https://ron-swanson-quotes.herokuapp.com/v2/quotes"
+          );
+
+          if (!res.ok) {
+            throw "Something went wrong.";
+          }
+
+          let data = await res.json();
+          let newQuote = data.toString();
+          console.log(newQuote);
+
+          //  check if quote exists in previous api calls, if exists call function again for new quote
+          if (prevQuotes.includes(newQuote)) {
+            console.log("TRUE", true, newQuote);
+            return getQuote();
+          }
+          // insert text
+          quote.innerText = newQuote;
+          prevQuotes.push(newQuote);
+          // limit array to 50 items
+          if (prevQuotes.length > 50) {
+            prevQuotes.shift();
+          }
+        } catch (error) {
+          console.warn(error);
+        }
+      }
+      setTimeout(() => {
+        getQuote();
+      }, 3000);
+      quoteButton.addEventListener("click", getQuote);
+    </script>
+  </body>
+</html>
