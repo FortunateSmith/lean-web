@@ -82,12 +82,15 @@
           }
 
           let data = await res.json();
+
+          if (!data) {
+            throw "No data available.";
+          }
           let newQuote = data.toString();
           console.log(newQuote);
 
           //  check if quote exists in previous api calls, if exists call function again for new quote
           if (prevQuotes.includes(newQuote)) {
-            console.log("TRUE", true, newQuote);
             return getQuote();
           }
           // insert text
@@ -98,7 +101,7 @@
             prevQuotes.shift();
           }
         } catch (error) {
-          console.warn(error);
+          quote.textContent = '[Something went wrong, sorry!] I have a joke for you... The government in this town is excellent, and uses your tax dollars efficiently.';
         }
       }
       setTimeout(() => {
