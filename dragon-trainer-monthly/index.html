@@ -4,12 +4,17 @@
     <meta charset="utf-8" />
     <title>Dragon Trainer Monthly</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap" rel="stylesheet">
     <style type="text/css">
       body {
         margin: 0 auto;
         max-width: 40em;
         width: 88%;
+      }
+      h1 {
+        font-family: Tangerine;
+        font-size: 4em;
+        /* font-style: italic; */
       }
       h3 {
         font-size: 1.4em;
@@ -63,28 +68,28 @@
           let data = await res.json();
           console.log(data);
 
-          let article;
-          let tableOfContents = (app.innerHTML = `<h2>Table of Contents</h2><ol> ${data.articles
+          let tableOfContents = `<h2>Table of Contents</h2><ol> ${data.articles
             .map(function (contents) {
               return `<li><a href=${contents.url}>${contents.title}</a></li>`;
             })
-            .join("")} </ol>`);
+            .join("")} </ol>`;
 
-          let body = (app.innerHTML =
+          app.innerHTML =
             tableOfContents +
-            ` 
-            
-            ${data.articles
+            `${data.articles
               .map(function (article) {
-                return `            
-            <h3 id=${article.url.slice(1)}>${article.title}</h3>
-            <h4>${article.author}</h4>
-            <p class='pub-date'>${article.pubdate}</p>
-            <p>${article.article}</p>
-            <a href='#title'><p class='to-top'>Back to Top</p></a>`;
+                return `
+                <article>            
+                  <h3 id=${article.url.slice(1)}>${article.title}</h3>
+                  <h4>${article.author}</h4>
+                  <p class='pub-date'>${article.pubdate}</p>
+                  <p>${article.article}</p>
+                  <a href='#title'><p class='to-top'>Back to Top</p></a>
+                </article>`;
               })
-              .join("")}`);
+              .join("")}`;
         } catch (error) {
+          console.warn(error);
           app.textContent = `There are no dragons in these parts`;
         }
       }
