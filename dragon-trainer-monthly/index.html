@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Dragon Trainer Monthly</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style type="text/css">
+      body {
+        margin: 0 auto;
+        max-width: 40em;
+        width: 88%;
+      }
+      h3 {
+        font-size: 1.4em;
+      }
+      h4 {
+        font-size: 1.2em;
+      }
+      ol {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        padding: 10px 20px;
+        list-style: upper-roman inside;
+        border: solid black 1px;
+      }
+      a {
+        text-decoration: none;
+        color: black;
+      }
+      a:hover {
+        color: #23972b;
+        cursor: pointer;
+      }
+      .pub-date {
+        font-size: 1.1em;
+        font-style: italic;
+      }
+      .to-top {
+        color: rgb(138, 0, 0);
+        font-style: italic;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="title">Dragon Trainer Monthly</h1>
+
+    <div id="app"></div>
+
+    <script>
+      const app = document.querySelector("#app");
+      async function fetchData() {
+        try {
+          let res = await fetch(
+            `https://vanillajsacademy.com/api/dragons.json`
+          );
+
+          if (!res.ok) {
+            throw `Something went wrong.`;
+          }
+          let data = await res.json();
+          console.log(data);
+
+          let article;
+          let tableOfContents = (app.innerHTML = `<h2>Table of Contents</h2><ol> ${data.articles
+            .map(function (contents) {
+              return `<li><a href=${contents.url}>${contents.title}</a></li>`;
+            })
+            .join("")} </ol>`);
+
+          let body = (app.innerHTML =
+            tableOfContents +
+            ` 
+            
+            ${data.articles
+              .map(function (article) {
+                return `            
+            <h3 id=${article.url.slice(1)}>${article.title}</h3>
+            <h4>${article.author}</h4>
+            <p class='pub-date'>${article.pubdate}</p>
+            <p>${article.article}</p>
+            <a href='#title'><p class='to-top'>Back to Top</p></a>`;
+              })
+              .join("")}`);
+        } catch (error) {
+          app.textContent = `There are no dragons in these parts`;
+        }
+      }
+
+      fetchData();
+    </script>
+  </body>
+</html>
