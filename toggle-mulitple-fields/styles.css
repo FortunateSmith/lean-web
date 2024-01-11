@@ -17,3 +17,7 @@ input {
   margin-bottom: 0;
   margin-right: 0.25em;
 }
+
+#new-password {
+  background-color: pink;
+}

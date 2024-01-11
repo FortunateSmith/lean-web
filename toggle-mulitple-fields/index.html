@@ -38,10 +38,20 @@
       const passwords = document.querySelectorAll("[type=password]");
       const toggle = document
         .querySelector("#show-passwords")
-        .addEventListener("change", (e) =>
-          passwords.forEach((password) =>
-            e.target.checked ? (password.type = "text") : (password.type = "password")
-          )
+        .addEventListener("change", (e) =>{
+          // passwords.forEach((password) =>
+          //   e.target.checked ? (password.type = "text") : (password.type = "password")
+          // )
+          console.log(passwords)
+          for (let password of passwords) {
+            console.log(password)
+            if (e.target.checked) {
+              password.type = "text";
+            } else {
+              password.type = "password"
+            }
+          }
+        }
         );
     </script>
   </body>

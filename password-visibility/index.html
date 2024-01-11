@@ -57,7 +57,7 @@
 
     <script>
       const getCheckbox = document.querySelector("input[type=checkbox]");
-      let elem = document.querySelector("#password");
+      const elem = document.querySelector("#password");
 
       getCheckbox.addEventListener("change", (e) => {
         e.target.checked ? (elem.type = "text") : (elem.type = "password");
