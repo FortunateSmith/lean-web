@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <div id="app2"></div>
+    <script>
+      // a (fake) dangerous url
+      let url = `javascript:alert('XSS Attack muthafucka!')`;
+      // select element to add content within
+      const app = document.querySelector("#app");
+
+      // create element
+      let link = document.createElement("a");
+      // add content
+      link.textContent = `Click Me`;
+      // add link url (sanitized)
+      link.href = url.replace(/javascript/gi, "");
+      // append the new link element
+      app.append(link);
+      /////////////////////////////////////////////////////////
+
+      // select element to add content within
+      const app2 = document.querySelector("#app2");
+      // create element
+      let link2 = document.createElement("a");
+      // add content
+      link2.textContent = `Click Me Too!`;
+      // add link url (sanitized)
+      link2.href = url;
+      // select element by ID
+      app2.append(link2);
+    </script>
+  </body>
+</html>
