@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 class="greeting">Good Morning</h1>
+    <h2 id="time-message">It is <span id="current-time"></span> in Toronto.</h2>
+  </body>
+
+  <script>
+    // const timeMessage = document.querySelector("");
+    let time = document.querySelector("span");
+    let greeting = document.querySelector(".greeting");
+    // let greeting = time.closest(".greeting");
+
+    console.log(greeting);
+
+    function updateTime() {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+
+      const currentTime = `${hours.toString().padStart(2, 0)}:${minutes
+        .toString()
+        .padStart(2, 0)}:${seconds.toString().padStart(2, 0)}`;
+      time.textContent = currentTime;
+
+      if (currentTime >= "11:59:59" && currentTime <= "17:59:59") {
+        greeting.textContent = "Good Afternoon";
+      } else if (currentTime >= "16:00:00") {
+        greeting.textContent = "Good Evening";
+      } else {
+        greeting.textContent = "Good Morning";
+      }
+    }
+
+    updateTime();
+    setInterval(updateTime, 1000);
+  </script>
+</html>
